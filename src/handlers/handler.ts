@@ -1,9 +1,9 @@
 import { IDatastore } from '../db/Datastore';
 
 class Handler {
-  ds: IDatastore;
+  ds: IDatastore | any;
 
-  constructor(ds: IDatastore) {
+  constructor(ds: IDatastore | any) {
     this.ds = ds;
   }
 }
