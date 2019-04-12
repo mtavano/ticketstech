@@ -7,11 +7,13 @@ dotenv.config();
 
 import GigsService from './db/GigsService';
 import HostsService from './db/HostsService';
+import RaversService from './db/RaverService';
 
 import handleFunc from './handlers';
 
 import GigsHandler from './handlers/gigs';
 import HostsHandler from './handlers/hosts';
+import RaversHandler from './handlers/ravers';
 import ping from './handlers/ping';
 
 (async () => {
@@ -24,10 +26,12 @@ import ping from './handlers/ping';
     // services
     const gigsSvc = new GigsService(client);
     const hostsSvc = new HostsService(client);
+    const raversScv = new RaversService(client);
 
     // handlers
     const gigsHandler = new GigsHandler(gigsSvc);
     const hostsHandler = new HostsHandler(hostsSvc);
+    const raversHandler = new RaversHandler(raversScv);
 
     // Middlewares
     server.use(bodyParser.json());
@@ -36,6 +40,7 @@ import ping from './handlers/ping';
     server.get('/api/ping', ping);
     server.post('/api/gigs', handleFunc(gigsHandler.addGigs));
     server.post('/api/hosts', handleFunc(hostsHandler.addHosts));
+    server.post('/api/ravers', handleFunc(raversHandler.addRavers));
 
     const { PORT } = process.env;
     server.listen(PORT);
