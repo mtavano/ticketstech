@@ -47,6 +47,8 @@ import ping from './handlers/ping';
     server.post('/api/hosts', handleFunc(hostsHandler.addHosts));
     server.post('/api/ravers', handleFunc(raversHandler.addRavers));
     server.post('/api/assistances', handleFunc(assHandler.addAssistances));
+    server.get('/api/gigs/:id', handleFunc(gigsHandler.findByid));
+    server.get('/api/gigs', handleFunc(gigsHandler.findAll));
 
     const { PORT } = process.env;
     server.listen(PORT);
