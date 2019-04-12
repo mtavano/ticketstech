@@ -6,7 +6,8 @@
     "rootDir": "src/",
     "outDir": "dist",
     "sourceMap": true,
-    "noImplicitThis": false
+    "noImplicitThis": false,
+    "pretty": true
   },
   "include": [
     "src/*.ts",
