@@ -1,0 +1,12 @@
+development:
+    driver: postgres
+    dsn: postgres://localhost/tickets?sslmode=disable
+
+test:
+    driver: postgres
+    dsn: postgres://localhost/tickets?sslmode=disable
+
+production:
+    driver: postgres
+    dsn: $DATABASE_URL
+
