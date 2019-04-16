@@ -22,6 +22,18 @@ class AssistancesHandler extends Handler {
       throw err;
     }
   };
+
+  public findByGigId = async (req: Request): Promise<any> => {
+    try {
+      const { id } = req.params;
+
+      const assistances: Assistance[] = await this.ds.findByGigId(id);
+
+      return { data: { assistances }, status: 200 };
+    } catch (err) {
+      throw err;
+    }
+  };
 }
 
 export default AssistancesHandler;

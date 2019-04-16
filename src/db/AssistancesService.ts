@@ -28,6 +28,27 @@ class AssistancesService extends Datastore {
       throw err;
     }
   };
+
+  public findByGigId = async function(id: string): Promise<Assistance[]> {
+    try {
+      const sql: string = `SELECT * FROM assistances WHERE "gigId"=$1`;
+      const result = await this.client.query(sql, [id]);
+
+      if (!result.rows.length) {
+        return [];
+      }
+
+      const assistances: Assistance[] = result.rows.map((row: any) => {
+        const ass: Assistance = <Assistance>row;
+
+        return ass;
+      });
+
+      return assistances;
+    } catch (err) {
+      throw err;
+    }
+  };
 }
 
 export default AssistancesService;
