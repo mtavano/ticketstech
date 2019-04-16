@@ -21,18 +21,20 @@ import ping from './handlers/ping';
 
 (async () => {
   try {
+    // Database connection
     const client = new Client();
     await client.connect();
 
-    // server
+    // Server instantiation
     const server = express();
-    // services
+
+    // Services creations
     const gigsSvc = new GigsService(client);
     const hostsSvc = new HostsService(client);
     const raversScv = new RaversService(client);
     const assSvc = new AssistancesService(client);
 
-    // handlers
+    // Handlers creation
     const gigsHandler = new GigsHandler(gigsSvc);
     const hostsHandler = new HostsHandler(hostsSvc);
     const raversHandler = new RaversHandler(raversScv);
@@ -43,12 +45,18 @@ import ping from './handlers/ping';
 
     // Endpoints
     server.get('/api/ping', ping);
+    // Gigs
     server.post('/api/gigs', handleFunc(gigsHandler.addGigs));
-    server.post('/api/hosts', handleFunc(hostsHandler.addHosts));
-    server.post('/api/ravers', handleFunc(raversHandler.addRavers));
-    server.post('/api/assistances', handleFunc(assHandler.addAssistances));
     server.get('/api/gigs/:id', handleFunc(gigsHandler.findByid));
     server.get('/api/gigs', handleFunc(gigsHandler.findAll));
+    // Ravers
+    server.post('/api/ravers', handleFunc(raversHandler.addRavers));
+    server.get('/api/ravers/:dni', handleFunc(raversHandler.findByDni));
+    server.get('/api/ravers', handleFunc(raversHandler.findAll));
+    // Hosts
+    server.post('/api/hosts', handleFunc(hostsHandler.addHosts));
+    // Assistances
+    server.post('/api/assistances', handleFunc(assHandler.addAssistances));
 
     const { PORT } = process.env;
     server.listen(PORT);

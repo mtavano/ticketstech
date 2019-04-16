@@ -22,6 +22,27 @@ class RaversHandler extends Handler {
       throw err;
     }
   };
+
+  public findByDni = async (req: Request): Promise<any> => {
+    try {
+      const { dni } = req.params;
+      const raver = await this.ds.findByDni(dni);
+
+      return { data: { raver }, status: 200 };
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  public findAll = async (req: Request): Promise<any> => {
+    try {
+      const ravers = await this.ds.findAll();
+
+      return { data: { ravers }, status: 200 };
+    } catch (err) {
+      throw err;
+    }
+  };
 }
 
 export default RaversHandler;
